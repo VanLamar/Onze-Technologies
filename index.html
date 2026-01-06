@@ -58,7 +58,6 @@
             height: 59px;
         }
 
-        /* Wrapper для контент-боксу та ліній */
         .content-wrapper {
             position: relative;
             width: 772px;
@@ -79,7 +78,6 @@
             z-index: 2;
         }
 
-        /* Лінії тепер прив'язані до content-wrapper */
         .lines-container {
             position: absolute;
             top: 0;
@@ -100,7 +98,6 @@
             object-fit: contain;
         }
 
-        /* Лінії 2, 4, 5, 6, 7 - прив'язані до content-wrapper */
         .line2 {
             top: -210px;
             right: 50px;
@@ -138,7 +135,6 @@
             height: 170px;
         }
 
-        /* Лінії 1, 3, 8, 9 - фіксовані відносно екрану */
         .line1 {
             position: fixed;
             top: -20vh;
@@ -201,21 +197,310 @@
             background: linear-gradient(90deg,
                     rgba(255, 255, 255, 0.4),
                     rgba(255, 255, 255, 0));
+            background-size: 200% 100%;
+            background-position: left;
             color: white;
             border: 1px solid #BCDBFF;
             padding: 10px 40px;
             font-size: 16px;
             border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background-position 0.6s ease, box-shadow 0.3s ease, transform 0.2s ease;
             font-weight: 400;
             letter-spacing: auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.3),
+                    transparent);
+            transition: left 0.6s ease;
         }
 
         .cta-button:hover {
             background: linear-gradient(90deg,
                     rgba(255, 255, 255, 0),
                     rgba(255, 255, 255, 0.4));
+            background-position: right;
+            box-shadow: 0 5px 20px rgba(188, 219, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:active {
+            transform: translateY(0);
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            width: 600px;
+            max-width: 90vw;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #000;
+        }
+
+        .modal h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            color: #1a1a2e;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+
+        .modal-subtitle {
+            font-family: 'Poppins', sans-serif;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full.br {
+            margin-top: 10px;
+        }
+
+        .form-group.full {
+            width: 100%;
+        }
+
+        .form-group label {
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+            font-weight: 400;
+        }
+
+        .form-group label .required {
+            color: #ff0000;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            font-family: 'Poppins', sans-serif;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+            background: #f8f8f8;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #BCDBFF;
+            background: white;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 20px 0 30px 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-top: 4px;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .checkbox-group label a {
+            color: #1a1a2e;
+            text-decoration: underline;
+        }
+
+        .submit-button {
+            font-family: 'Poppins', sans-serif;
+            background: #1a1a2e;
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 400;
+            width: 100%;
+        }
+
+        .submit-button:hover {
+            background: #2a2a3e;
+        }
+
+        .cookie-banner {
+            position: fixed;
+            bottom: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 0;
+            padding: 20px 25px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-width: 100%;
+            width: 100%;
+            display: none;
+        }
+
+        .cookie-banner.show {
+            display: block;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateX(-50%) translateY(100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .cookie-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .cookie-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            color: #333;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .cookie-text a {
+            color: #1a1a2e;
+            font-weight: 500;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 15px;
+            flex-shrink: 0;
+        }
+
+        .cookie-accept {
+            font-family: 'Poppins', sans-serif;
+            background: #2c2c2c;
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            font-size: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-weight: 400;
+            white-space: nowrap;
+        }
+
+        .cookie-accept:hover {
+            background: #1a1a1a;
+        }
+
+        .cookie-reject {
+            font-family: 'Poppins', sans-serif;
+            background: #0066FF;
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            font-size: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 400;
+            white-space: nowrap;
+        }
+
+        .cookie-reject:hover {
+            background: #0052CC;
         }
 
         @media (max-width: 768px) {
@@ -227,6 +512,55 @@
 
             .container {
                 padding: 40px 20px;
+            }
+
+            .modal {
+                padding: 30px 20px;
+                width: 95vw;
+            }
+
+            .modal h2 {
+                font-size: 22px;
+            }
+
+            .modal-subtitle {
+                font-size: 13px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .submit-button {
+                padding: 12px 30px;
+                font-size: 14px;
+            }
+
+            /* === COOKIE BANNER === */
+            .cookie-banner {
+                bottom: 0;
+
+                padding: 20px 16px;
+            }
+
+            .cookie-content {
+                flex-direction: column;
+                gap: 16px;
+                align-items: stretch;
+            }
+
+            .cookie-buttons {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+            }
+
+            .cookie-accept,
+            .cookie-reject {
+                width: 100%;
+                padding: 14px 0;
+                font-size: 14px;
             }
 
             .content-wrapper {
@@ -312,8 +646,6 @@
             .line2,
             .line6,
             .line7,
-            /* .line3, */
-            /* .line8, */
             .line9 {
                 display: none;
             }
@@ -329,23 +661,6 @@
                 width: 590px;
                 height: 500px;
             }
-
-            /* Лінії 1, 3, 8, 9 - приховуємо на мобільних */
-            /* .line1,
-            .line3,
-            .line8,
-            .line9 {
-                display: none;
-            } */
-
-            /* Лінії 2, 4, 5, 6, 7 - приховуємо для чистого вигляду */
-            /* .line2,
-            .line4,
-            .line5,
-            .line6,
-            .line7 {
-                display: none;
-            } */
         }
 
 
@@ -380,7 +695,6 @@
         </div>
 
         <div class="content-wrapper">
-            <!-- Лінії тепер всередині wrapper -->
             <div class="lines-container">
                 <div class="line line1">
                     <img src="line1.png" alt="">
@@ -418,8 +732,135 @@
             </div>
         </div>
 
-        <button class="cta-button">Request Consultation</button>
+        <button class="cta-button" id="openModal">Request Consultation</button>
     </div>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <button class="modal-close" id="closeModal">×</button>
+            <h2>Have a project idea?</h2>
+            <p class="modal-subtitle">We are ready to discuss any issues, answer your questions, and propose clear and
+                effective solutions.</p>
+
+            <form id="contactForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" placeholder="First Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" placeholder="Last Name" required>
+                    </div>
+                </div>
+
+                <div class="form-group full">
+                    <label><span class="required">*</span>Email</label>
+                    <input type="email" placeholder="Email Address" required>
+                </div>
+
+                <div class="form-group full br">
+                    <label>Message</label>
+                    <textarea placeholder="Any additional information..."></textarea>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="privacy" required>
+                    <label for="privacy">I agree to all statements included in <a href="#">Privacy Policy</a></label>
+                </div>
+
+                <button type="submit" class="submit-button">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-content">
+            <p class="cookie-text">
+                We use cookies to improve website performance, for analytics, and for marketing purposes. By clicking
+                "Accept cookies," you consent to the use of non-essential cookies. Learn more in our <a href="#">Privacy
+                    Policy</a>.
+            </p>
+            <div class="cookie-buttons">
+                <button class="cookie-accept" id="acceptCookies">Accept</button>
+                <button class="cookie-reject" id="rejectCookies">Reject optional cookies</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cookie Banner Logic
+        const cookieBanner = document.getElementById('cookieBanner');
+        const acceptCookies = document.getElementById('acceptCookies');
+        const rejectCookies = document.getElementById('rejectCookies');
+
+        // Check if user has already made a choice
+        function checkCookieConsent() {
+            try {
+                const cookieConsent = localStorage.getItem('cookieConsent');
+                if (!cookieConsent) {
+                    setTimeout(() => {
+                        cookieBanner.classList.add('show');
+                    }, 500);
+                }
+            } catch (e) {
+                // If localStorage is not available, show banner anyway
+                setTimeout(() => {
+                    cookieBanner.classList.add('show');
+                }, 500);
+            }
+        }
+
+        // Run on page load
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', checkCookieConsent);
+        } else {
+            checkCookieConsent();
+        }
+
+        acceptCookies.addEventListener('click', () => {
+            try {
+                localStorage.setItem('cookieConsent', 'accepted');
+            } catch (e) {
+                console.log('localStorage not available');
+            }
+            cookieBanner.classList.remove('show');
+        });
+
+        rejectCookies.addEventListener('click', () => {
+            try {
+                localStorage.setItem('cookieConsent', 'rejected');
+            } catch (e) {
+                console.log('localStorage not available');
+            }
+            cookieBanner.classList.remove('show');
+        });
+
+        // Modal Logic
+        const openModal = document.getElementById('openModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalOverlay = document.getElementById('modalOverlay');
+
+        openModal.addEventListener('click', () => {
+            modalOverlay.classList.add('active');
+        });
+
+        closeModal.addEventListener('click', () => {
+            modalOverlay.classList.remove('active');
+        });
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.classList.remove('active');
+            }
+        });
+
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Form submitted successfully!');
+            modalOverlay.classList.remove('active');
+        });
+    </script>
 </body>
 
 </html>
